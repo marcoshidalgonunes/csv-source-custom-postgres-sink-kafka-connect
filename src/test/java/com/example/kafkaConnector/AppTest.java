@@ -1,4 +1,4 @@
-package com.example.PostgresSinkConnector;
+package com.example.kafkaConnector;
 
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
