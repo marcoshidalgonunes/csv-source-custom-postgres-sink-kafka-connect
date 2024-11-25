@@ -1,4 +1,4 @@
-package com.example.PostgresSinkConnector;
+package com.example.KafkaConnector;
 
 import org.apache.kafka.connect.data.Struct;
 import org.apache.kafka.connect.sink.SinkRecord;
@@ -37,7 +37,8 @@ public class PostgresSinkTask extends SinkTask {
             String album = value.getString("Album");
             String track = value.getString("Track");
 
-            String sql = "INSERT INTO " + tableName + " (performer, album, track) VALUES (?, ?, ?)";
+            String sql = "INSERT INTO " + tableName + " (performer, album, track) VALUES (?, ?, ?) " +
+                         "ON CONFLICT (album, track) DO NOTHING";
 
             try (PreparedStatement stmt = connection.prepareStatement(sql)) {
                 stmt.setString(1, performer);

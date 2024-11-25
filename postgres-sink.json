@@ -1,0 +1,18 @@
+{
+  "name": "postgres-sink-connector",
+  "config": {
+    "connector.class": "com.example.KafkaConnector.PostgresSinkConnector",
+    "tasks.max": "1",
+    "topics": "playlist-topic",
+    "connection.url": "jdbc:postgresql://postgres:5432/musics",
+    "connection.user": "postgres",
+    "connection.password": "postgres",
+    "table.name": "playlist",
+    "key.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "key.converter.schemas.enable": "true",
+    "key.converter.schema.registry.url": "http://schema-registry:8081",
+    "value.converter.schemas.enable": "true",
+    "value.converter.schema.registry.url": "http://schema-registry:8081"    
+  }
+}

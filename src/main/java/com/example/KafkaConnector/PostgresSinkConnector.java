@@ -1,4 +1,4 @@
-package com.example.PostgresSinkConnector;
+package com.example.KafkaConnector;
 
 import org.apache.kafka.connect.connector.Task;
 import org.apache.kafka.connect.sink.SinkConnector;
