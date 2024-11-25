@@ -56,7 +56,7 @@ services:
       SCHEMA_REGISTRY_LISTENERS: http://0.0.0.0:8081
 
   connect:
-    image: spooldir-connect
+    image: connector
     depends_on:
       kafka:
         condition: service_healthy
@@ -83,7 +83,6 @@ services:
       CONNECT_CONFIG_STORAGE_REPLICATION_FACTOR: -1
       CONNECT_OFFSET_STORAGE_REPLICATION_FACTOR: -1
       CONNECT_STATUS_STORAGE_REPLICATION_FACTOR: -1
-      CONNECT_PLUGIN_PATH: '/usr/share/java'
     volumes:
       - ./target:/usr/share/java/postgres-sink-kafka-connector
     healthcheck:

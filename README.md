@@ -26,7 +26,7 @@ included Dockerfile.
 ### Build the Kafka Connect image
 
 ```
-docker build -t spooldir-connect -f spoolDir.Dockerfile .
+docker build -t connector -f connector.Dockerfile .
 ```
 
 ### Build the custom Postgres sink Kafka Connect
@@ -46,10 +46,10 @@ docker-compose up -d --build
 ### Prepare Postgres database
 
 We will bring up a container with a psql command line, mount our local data
-files inside and create a database called `musics`.
+files inside and create a database called `musics` with `playlist` table.
 
 ```
-docker run -it --rm --network=postgres-kafka-connect_default \
+docker run -it --rm --network=csv-source-custom-postgres-sink-kafka-connect_default \
          -v postgresdata:/var/lib/postgresql/data \
          debezium-postgres psql -h postgres -U postgres
 ```
@@ -60,9 +60,12 @@ At the command line:
 ```
 CREATE DATABASE musics;
 \connect musics;
+CREATE TABLE playlist
+(album VARCHAR(256), track VARCHAR(256), performer VARCHAR(256),
+CONSTRAINT playlist_pk PRIMARY KEY (album, track));
 ```
 
-The prompot should show `musics` database. Execute `exit;` command to disconnect from Postgres.
+Execute `exit;` command to disconnect from Postgres.
 
 ### Using CSV file as source for Kafka
 
@@ -74,7 +77,7 @@ curl -X POST -H "Accept:application/json" -H "Content-Type: application/json" \
       --data @csv-source.json http://localhost:8083/connectors
 ```
 
-The connector `csv-source` should show up when curling for the list
+The connector `csv-spooldir-connector` should show up when curling for the list
 of existing connectors:
 
 ```
@@ -107,16 +110,16 @@ curl -X POST -H "Accept:application/json" -H "Content-Type: application/json" \
 Bring up once again the container with a psql command line:
 
 ```
-docker run -it --rm --network=postgres-kafka-connect_default \
+docker run -it --rm --network=csv-source-custom-postgres-sink-kafka-connect_default \
          -v postgresdata:/var/lib/postgresql/data \
-         debezium-postgres psql -h postgres -U postgres
+         postgres psql -h postgres -U postgres
 ```
 Password for user postgres: postgres
 
 At the command line:
 
 ```
-\connect musices;
+\connect musics;
 SELECT * FROM playlist;
 ```
 
