@@ -49,11 +49,8 @@ We will bring up a container with a psql command line, mount our local data
 files inside and create a database called `musics` with `playlist` table.
 
 ```
-docker run -it --rm --network=csv-source-custom-postgres-sink-kafka-connect_default \
-         -v postgresdata:/var/lib/postgresql/data \
-         debezium-postgres psql -h postgres -U postgres
+docker exec -it postgres psql -U postgres
 ```
-Password for user postgres: postgres
 
 At the command line:
 
@@ -68,6 +65,12 @@ CONSTRAINT playlist_pk PRIMARY KEY (album, track));
 Execute `exit;` command to disconnect from Postgres.
 
 ### Using CSV file as source for Kafka
+
+We will CSV data to Kafka container.
+
+```
+docker cp data/playlist.csv connect:/tmp/data/input
+```
 
 The `csv-source.json` file contains the configuration settings needed to
 sink CSV file content to Kafka.
@@ -88,7 +91,7 @@ The csv data now show up as topic in Kafka.
 You can check this by entering the Kafka container:
 
 ```
-docker exec -it <kafka-container-id> /bin/bash
+docker exec -it kafka /bin/bash
 ```
 
 and viewing the topic:
@@ -110,11 +113,8 @@ curl -X POST -H "Accept:application/json" -H "Content-Type: application/json" \
 Bring up once again the container with a psql command line:
 
 ```
-docker run -it --rm --network=csv-source-custom-postgres-sink-kafka-connect_default \
-         -v postgresdata:/var/lib/postgresql/data \
-         postgres psql -h postgres -U postgres
+docker exec -it postgres psql -U postgres
 ```
-Password for user postgres: postgres
 
 At the command line:
 
