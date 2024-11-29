@@ -10,7 +10,6 @@ The data used here is a MP3 playlist metadata. These CSV files are in `data` fol
 
 The following technologies are used through Docker containers:
 * Kafka, the streaming platform
-* Zookeeper, Kafka's best friend
 * Kafka's schema registry, needed to use the Avro data format
 * Kafka Connect, to orchestrate csv file source and Postgres sink.
 * Postgres, pulled from [Debezium](https://debezium.io/), tailored for use with Connect
