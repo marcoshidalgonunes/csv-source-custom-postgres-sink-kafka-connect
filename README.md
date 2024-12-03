@@ -1,4 +1,4 @@
-# postgres-kafka-connect
+# csv-source-custom-postgres-sink-kafka-connect
 
 Demo of how to stream CSV file to Kafka and use a custom sink Postgres connector. 
 
