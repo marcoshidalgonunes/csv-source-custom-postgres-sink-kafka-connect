@@ -23,18 +23,22 @@ included Dockerfile.
 ## ⚙️ Building components
 
 ### Build the Kafka Connect image
-
 ```
 docker build -t connector -f connector.Dockerfile .
 ```
 
-### Build the custom Postgres sink Kafka Connect
+### Create volume for Postgres
+```
+docker volume create postgresdata
+```
 
+### Build the custom Postgres sink Kafka Connect
 ```
 mvn clean package
 ```
 
 💡 A file named `target/postgres-sink-kafka-connector-1.0.jar` will be created. This is your Postgres sink connector for Kafka Connect.
+
 
 ## ⬆️ Bring up the environment
 
