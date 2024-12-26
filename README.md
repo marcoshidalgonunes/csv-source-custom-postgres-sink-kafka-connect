@@ -103,6 +103,9 @@ and viewing the topic:
 kafka-console-consumer --bootstrap-server localhost:9092 --topic playlist-topic --from-beginning
 ```
 
+Execute `exit` command to disconnect from Docker.
+
+
 ### Add a custom connector to sink topic to Postgres
 
 The `postgres-sink.json` configuration file will create the `playlist`
