@@ -69,7 +69,7 @@ Execute `exit;` command to disconnect from Postgres.
 
 ### Using CSV file as source for Kafka
 
-We will CSV data to Kafka container.
+We will copy CSV data to Kafka container.
 
 ```
 docker cp data/playlist.csv connect:/tmp/data/input
